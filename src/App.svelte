@@ -1,5 +1,31 @@
 <script>
-	export let name;
+     import { onMount } from "svelte";
+	 import UserSearch from "./users/UserSearch.svelte";
+
+	 export let apiEnv;
+	 export let resources;
+	 let users = [];
+	 let searchTerm = "";
+	 let displayUsersList = [];
+
+	 function genericResources(resource) {
+		 return resources.filter(el => el === resource);
+	 }
+
+	 function filterList(list, query) {
+         return list.filter(item => {
+             return (
+                 item.name.toLowerCase().match(query.toLowerCase()) ||
+                 item.email.toLowerCase().match(query.toLowerCase())
+             );
+         });
+     }
+
+	 onMount(async () => {
+         const res = await fetch(`${apiEnv + genericResources('users')}`);
+		 users = await res.json();
+         displayUsersList = users;
+     });
 </script>
 
 <style global lang="scss">
@@ -7,9 +33,11 @@
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
 </style>
 
-<main class="row justify-content-center mt-2">
-   <section class="col-12 col-md-8 col-lg-6 border rounded bg-light p-3">
-	     <h1 class="text-primary">Hello {name}!</h1>
-	     <p>Initial Commit and Configs</p>
-	</section>
+<main class="container">
+     <UserSearch
+         bind:searchTerm
+         on:updateSearch={() => {
+             displayUsersList = filterList(users, searchTerm);
+		 }}
+	 />
 </main>
