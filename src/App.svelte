@@ -2,29 +2,14 @@
 	export let name;
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+<style global lang="scss">
+  $primary: purple;
+  @import "../node_modules/bootstrap/scss/bootstrap.scss";
 </style>
+
+<main class="row justify-content-center mt-2">
+   <section class="col-12 col-md-8 col-lg-6 border rounded bg-light p-3">
+	     <h1 class="text-primary">Hello {name}!</h1>
+	     <p>Initial Commit and Configs</p>
+	</section>
+</main>
