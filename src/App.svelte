@@ -20,8 +20,7 @@
 	 function filterList(list, query) {
          return list.filter(item => {
              return (
-                 item.name.toLowerCase().match(query.toLowerCase()) ||
-                 item.email.toLowerCase().match(query.toLowerCase())
+                 item.user.name.toLowerCase().match(query.toLowerCase())
              );
          });
      }
